@@ -1,0 +1,32 @@
+<view class="index">
+	<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+	<mp-dialog title="确认操作" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+		<view>是否清除历史查询？</view>
+	</mp-dialog>
+	<view class="index-mask"></view>
+	<view class="index-header">
+		<view class="index-header-left">
+			买前查价，避免上当
+		</view>
+		<view class="index-header-right" bindtap="onClickGuide">
+			👉查价攻略
+		</view>
+	</view>
+	<view class="index-input">
+		<textarea value="{{ input }}" placeholder="京东、天猫、淘宝、亚马逊、苏宁、拼多多、小米商城、国美、考拉、网易严选等商品网址，如：https://item.jd.com/100010566966.html。详情见查价攻略~" placeholder-style="color:#45526b;font-size:small;" bindinput="onChangeInput"></textarea>
+	</view>
+	<view class="index-submit">
+		<button type="primary" plain="{{true}}" bindtap="onClickSubmit" style="color: #65587f;border: 1px solid #65587f">查询</button>
+	</view>
+	<view class="index-history-bar">
+		<view class="index-history-bar-left">历史查询</view>
+		<view class="index-history-bar-right" bindtap="onClickClean">🗑️</view>
+	</view>
+	<view class="index-history">
+		<scroll-view scroll-y style="height:{{scrollHeight}}px">
+			<view wx:for="{{historyList}}" data-url="{{ item.url }}" bindtap="onClickHistory" class="index-history-row">
+				{{ item.site_name }} · {{ item.name }}
+			</view>
+		</scroll-view>
+	</view>
+</view>

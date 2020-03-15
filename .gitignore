@@ -1,0 +1,11 @@
+# 文件系统
+.DS_Store
+
+# 小程序
+miniprogram_npm
+node_modules
+yarn.lock
+
+# 爬虫
+.idea
+__pycache__

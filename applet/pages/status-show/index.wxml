@@ -1,0 +1,8 @@
+<view class="status-show">
+	<view class="status-show-container">
+		<view style="font-size:120px">😿</view>
+		<!-- <image src="../../image/fail.jpg" style="max-width:120px;max-height:120px;"></image> -->
+		<view>页面走丢了~</view>
+		<button type="primary" size="mini" plain="{{true}}" bindtap="onClickBtn" style="color: #65587f;border: 1px solid #65587f;">返回首页</button>
+	</view>
+</view>

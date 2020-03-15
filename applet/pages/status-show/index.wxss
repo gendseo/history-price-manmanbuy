@@ -1,0 +1,17 @@
+.status-show {
+  box-sizing: border-box;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.status-show-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.status-show-container>button {
+  margin-top: 80rpx;
+}
