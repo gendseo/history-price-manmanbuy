@@ -33,18 +33,13 @@
   align-content: center;
 }
 
-.result-article-detail-footer-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.result-article-detail-price {
+.result-article-detail-footer-left-price {
   color: red;
   font-size: small;
+  font-weight: bold;
 }
 
-.result-article-detail-site {
+.result-article-detail-footer-left-site {
   color: #b7b7b7;
   font-size: small;
 
@@ -52,6 +47,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
+}
+
+.result-article-detail-footer-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .result-price {

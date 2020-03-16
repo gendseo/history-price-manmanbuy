@@ -5,8 +5,8 @@
 			<view class="result-article-detail-title">{{ item.name }}</view>
 			<view class="result-article-detail-footer">
 				<view class="result-article-detail-footer-left">
-					<view class="result-article-detail-price">¥{{ item.current_price }}</view>
-					<view class="result-article-detail-site">{{ item.site_name }}</view>
+					<view class="result-article-detail-footer-left-price">¥{{ item.current_price }}</view>
+					<view class="result-article-detail-footer-left-site">{{ item.site_name }}</view>
 				</view>
 				<view class="result-article-detail-footer-right">
 					<button size="mini" type="primary" open-type="share" style="padding: 0 24rpx;font-size:22rpx">分享</button>
