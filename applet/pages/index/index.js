@@ -7,14 +7,14 @@ Page({
   data: {
     error: '', // 错误提示信息
     dialogShow: false, // 显示删除dialog
-    buttons: [{  // dialog的操作按钮
+    buttons: [{ // dialog的操作按钮
       text: '否'
     }, {
       text: '是'
     }],
-    input: '',  // 用户输入内容
-    scrollHeight: 0,  // 历史查询框高度
-    historyList: [],  // 历史查询记录
+    input: '', // 用户输入内容
+    scrollHeight: 0, // 历史查询框高度
+    historyList: [], // 历史查询记录
   },
 
   /**
@@ -27,7 +27,7 @@ Page({
     // wx.createSelectorQuery 参考微信小程序官方文档
     let query = wx.createSelectorQuery().in(this)
     // 返回元素的布局和位置等信息 参考微信小程序官方文档
-    query.select('.index-history-bar').boundingClientRect(function (res) {
+    query.select('.index-history-bar').boundingClientRect(res => {
       that.setData({
         scrollHeight: sysInfo.windowHeight - res.bottom
       })
@@ -90,8 +90,18 @@ Page({
     if (!this.checkField()) {
       return
     }
+    let _url = ''
+    let s = this.checkShortUrl()
+    if (s.isShortUrl) {
+      // 是短链
+      _url = '/pages/result/index' + '?' + 'url=' + encodeURIComponent(this.getShortUrl(s.from)) + '&' + 'isShortUrl=' + true
+    } else {
+      // 使用encodeURIComponent转义url
+      _url = '/pages/result/index' + '?' + 'url=' + encodeURIComponent(that.data.input) + '&' + 'isShortUrl=' + false
+    }
+    console.log(_url)
     wx.navigateTo({
-      url: '/pages/result/index' + '?' + 'url=' + encodeURIComponent(that.data.input),  // 使用encodeURIComponent转义url
+      url: _url
     })
   },
 
@@ -160,6 +170,53 @@ Page({
       return false
     }
     return true
+  },
+
+  // 检查是否是短链
+  checkShortUrl() {
+    // 具体的做法就是检查输入的url中是否包含有关键词，如："这","行","话"
+    let isShortUrl = false
+    let from = ''
+    let taobao_rule = ['这', '行', '话']
+
+    let inputUrl = this.data.input
+
+    if (taobao_rule.some(r => {
+        return inputUrl.includes(r)
+      })) {
+      isShortUrl = true
+      from = 'tb'
+    } else if (inputUrl.includes(' ')) {
+      isShortUrl = true
+      from = 'other'
+    } else if (inputUrl.includes('gome.com')) {
+      isShortUrl = true
+      from = 'gome'
+    }
+    return {
+      isShortUrl: isShortUrl,
+      from: from,
+    }
+  },
+
+  // 获取短链
+  getShortUrl(from) {
+    let _url = this.data.input
+    let a = ''
+    console.log('from = ', from)
+    if (from === 'tb') {
+      // fu至这行话₤TJhj18T4qgp₤转移至👉τаo宝аρρ👈【华为荣耀FlypodsPro单只左右3蓝牙耳机充电盒仓器丢失损坏补配件】；或https://m.tb.cn/h.VgmmC53?sm=2b9e07 点几链街，再选择瀏..覽..噐大开
+      a = _url.split('或') // 将字符串从 "或" 字分割
+      a = a[1].split(' ') // 再将含有url的从 " " 分割
+      a = a[0] // 获取url
+    } else if (from === 'other') {
+      a = _url.split(' ')
+      a = a[a.length - 1]
+    } else if (from === 'gome') {
+      a = _url.replace(' ', '')
+    }
+    console.log(a)
+    return a
   },
 
 })

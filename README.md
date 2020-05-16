@@ -3,6 +3,12 @@
 使用Python与微信小程序构建  
 开发工具：PyCharm与微信小程序开发者工具  
 数据部分由[慢慢买](http://manmanbuy.com/)采集整理并提供  
+使用方式：打开对应商城APP，复制需要查价的商品链接/短链，回到商品历史价格查询小程序粘贴查询  
+
+## 截图
+
+![index](screenshots/index.png)
+![result](screenshots/result.png)
 
 ## 目录结构
 

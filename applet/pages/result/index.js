@@ -69,8 +69,9 @@ Page({
       // 将 lazyLoad 设为 true 后，需要手动初始化图表
       lazyLoad: true
     },
-    isShow: false,  // 为了用户体验，先将页面隐藏，等数据加载完后再显示
+    isShow: false, // 为了用户体验，先将页面隐藏，等数据加载完后再显示
     url: '', // 从路径参数传入的url
+    isShortUrl: false,
     tabActive: 0, // 时间选项卡默认激活下标
     tabList: ["全部", "180天", "60天", "30天"], // 时间选项卡的tabs
     item: {}, // 该商品的所有信息
@@ -83,12 +84,13 @@ Page({
 
     // 指代this  避免被回调函数改变作用域
     let that = this
-
     if (options.url) {
       // 从路径参数获取url
       let url = decodeURIComponent(options.url) // 解码url
+      console.log(url)
       that.setData({
         url: url,
+        isShortUrl: options.isShortUrl === 'true' ? true : false,
       })
     }
   },
@@ -126,16 +128,17 @@ Page({
     // 请求爬虫数据接口
     let res = await new Promise((resolve, reject) => wx.request({
       // 根据需求更换接口地址
-      url: 'https://api.xiangxing.wang/hpmmb/', // 手机预览
-      // url: 'http://localhost:9500/',  // 本地测试
+      // url: 'https://api.xiangxing.wang/hpmmb/', // 手机预览
+      url: 'http://localhost:5000/',  // 本地测试
       method: 'POST',
       data: {
-        url: that.data.url,  // 将传入的url参数作为请求参数
+        url: that.data.url, // 将传入的url参数作为请求参数
+        is_short_url: that.data.isShortUrl,  // 是否为短链接
       },
       success: res => resolve(res),
       fail: err => reject(err),
     }))
-
+    console.log(res.data)
     if (res.data.code === 0) {
       // 请求成功
       that.setData({
